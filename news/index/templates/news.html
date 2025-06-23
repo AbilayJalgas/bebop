@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DailyNews | {{ news }}</title>
+</head>
+<body>
+    <h1>{{ news }}</h1>
+    <hr>
+    {{ news.text }}
+    <hr>
+    Время публикации: {{ news.add_date }}
+    <hr>
+    Новости по этой теме: <a href="/category/{{ news.news_category.id }}">{{ news.news_category }}</a>
+</body>
+</html>
