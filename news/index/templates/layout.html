@@ -26,7 +26,10 @@
             <div class="col-4 pt-1 text-center">
                 <a class="blog-header-logo text-body-emphasis text-decoration-none" href="/">DailyNews</a>
             </div>
-            <form action="/search" method="post" class="col-4" role="search">
+            <div class="col-2 pt-1 text-center">
+                <a class="blog-header-logo text-body-emphasis text-decoration-none" href="/favourites"><i class="fa-sharp fa-solid fa-heart"></i></a>
+            </div>
+            <form action="/search" method="post" class="col-2" role="search">
                 {% csrf_token %}
                 <input name="search_news" type="search" class="form-control" placeholder="Поиск..." aria-label="Search">
             </form>

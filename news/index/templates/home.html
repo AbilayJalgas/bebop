@@ -30,3 +30,15 @@
 
 
 {% endblock %}
+
+{% if user.is_authenticated %}
+                <form action="/to-cart/{{ product.id }}" method="post">
+                    {% csrf_token %}
+                    <input type="number" min="1" value="1" name="product_count" class="form_control">
+                    <button type="submit" class="btn btn-primary">Добавить в корзину</button>
+                    <button type="button" class="btn btn-outline-secondary">${{ product.product_price }}</button>
+                </form>
+                {% else %}
+                    <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Войдите или зарегистрируйтесь, стобы купить</button>
+                    <button type="button" class="btn btn-outline-secondary btn-lg px-4">${{ product.product_price }}</button>
+                {% endif %}

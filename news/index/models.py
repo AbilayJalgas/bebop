@@ -23,3 +23,13 @@ class News(models.Model):
 
     def __str__(self):
         return str(self.news_title)
+
+class Favourites(models.Model):
+    class Meta:
+        verbose_name_plural = 'Избранные'
+
+    user_id = models.IntegerField()
+    user_favourites = models.ForeignKey(News, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.user_id)

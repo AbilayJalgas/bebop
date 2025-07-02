@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{% block title %}Избранные{% endblock %}
+
+{% block main %}
+
+
+
+{% for f in favourites %}
+<div class="container">
+    <img src="{{ f.user_favourites.news_photo.url }}" width='550' height='450' alt="{{ news }}">
+    <h3 class="fs-2 text-dark">{{ f.user_favourites }}</h3>
+    <form action="/del-from-favourites/{{ f.user_favourites.id }}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-warning">Удалить</button>
+    </form>
+    <hr>
+</div>
+{% endfor %}
+
+
+
+
+
+{% endblock %}
