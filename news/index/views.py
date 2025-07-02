@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 # Главная страница
 # Достаем данные
 def home_page(request):
-    news = News.objects.all()
+    news = News.objects.all().order_by('-add_date')
     categories = NewsCategory.objects.all()
 
     # Передаем данные на фронт
@@ -23,17 +23,23 @@ def home_page(request):
 def category_page(request, pk):
     category = NewsCategory.objects.get(id=pk)
     news = News.objects.filter(news_category=category)
+    categories = NewsCategory.objects.all()
 
     context = {
         'category': category,
-        'news': news
+        'news': news,
+        'categories': categories
     }
     return render(request, 'category.html', context)
 
 def news_page(request, pk):
     news = News.objects.get(id=pk)
+    categories = NewsCategory.objects.all()
 
-    context = {'news': news}
+    context = {
+        'news': news,
+        'categories': categories
+    }
     return render(request, 'news.html', context)
 
 # Пойск новостей
@@ -41,17 +47,20 @@ def search(request):
     if request.method == 'POST':
         get_news = request.POST.get('search_news')
         searched_news = News.objects.filter(news_title__iregex=get_news)
+        categories = NewsCategory.objects.all()
 
         if searched_news:
             context = {
                 'news': searched_news,
-                'request': get_news
+                'request': get_news,
+                'categories': categories
             }
             return render(request, 'result.html', context)
         else:
             context = {
                 'news': '',
-                'request': get_news
+                'request': get_news,
+                'categories': categories
             }
             return render(request, 'result.html', context)
 
@@ -109,9 +118,11 @@ def del_from_favourites(request, pk):
 # Отображение избранных
 def show_favourites(request):
     user_favourites = Favourites.objects.filter(user_id=request.user.id)
+    categories = NewsCategory.objects.all()
 
     context = {
         'favourites': user_favourites,
+        'categories': categories
     }
 
     return render(request, 'favourites.html', context)
